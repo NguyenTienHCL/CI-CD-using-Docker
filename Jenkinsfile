@@ -27,9 +27,10 @@ pipeline {
         }
         
         stage("Deploy docker image to Tomcat server"){
-            def dockerRun = 'docker run -d -p 8888:8080 tiennguyenhcl/samplewebapp'
-            sshagent(['dev-server']) {
-            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.10.133 ${dockerRun}"
-    }
+            def dockerRun = 'docker run -d -p 8888:8080 tiennguyenhcl/samplewebapp'
+            sshagent(['dev-server']) {
+                sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.10.133 ${dockerRun}"
+            }
+        }
     }
 }
