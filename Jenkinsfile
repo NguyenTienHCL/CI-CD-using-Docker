@@ -28,7 +28,7 @@ pipeline {
         
         stage('run container') {
             steps {
-                sh "docker run -d -p 8090:8080 tiennguyenhcl/samplewebapp"
+                sh "docker run -d -p 8888:8080 tiennguyenhcl/samplewebapp"
             }
         }
         
