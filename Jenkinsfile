@@ -26,16 +26,10 @@ pipeline {
             }    
         }
         
-        stage('run container') {
-            steps {
-                sh "docker run -d -p 8888:8080 tiennguyenhcl/samplewebapp"
-            }
-        }
-        
-        stage('Run Docker container on remote hosts') {
-             steps {
-                sh "docker -H ssh://jenkins@3.38.107.165 run -d -p 8888:8080 tiennguyenhcl/samplewebapp"
-             }
-        }
+        stage("Deploy docker image to Tomcat server"){
+            def dockerRun = 'sh "docker run -d -p 8888:8080 tiennguyenhcl/samplewebapp"'
+            sshagent(['dev-server']) {
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.10.133 ${dockerRun}"
+    }
     }
 }
